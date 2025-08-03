@@ -4,16 +4,17 @@ import pandas as pd
 
 # === PARAMETERS ===
 dt = 1.0
-Q = 0.1               # system (process) noise: model uncertainty in gain
+Q = 0.01               # system (process) noise: model uncertainty in gain
 R = 0.20               # measurement noise variance
 initial_gain_estimate = 0.5
 true_gain = 1.2
-n = 20                 # number of time steps
+                 # number of time steps
 
 # === SIMULATED MEASUREMENTS ===
 
 # === SIMULATED INPUTS ===
-u = np.random.choice([-1, 1], size=n)
+u = np.concatenate([np.random.choice([-1, 1], size=30), np.ones(50), np.random.choice([-1, 1], size=30)])
+n = len(u)
 
 np.random.seed(42)
 z = [true_gain + np.random.normal(0, np.sqrt(R)) for _ in range(n)]         # random sequence of length n consisting of only -1 and 1
